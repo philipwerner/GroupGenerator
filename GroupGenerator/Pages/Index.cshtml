@@ -2,19 +2,53 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    int num = Convert.ToInt32( ViewData["GroupNumber"]);
+    int size = Convert.ToInt32( ViewData["GroupSize"]);
 }
 
-<div >
-    
-    <form>
-    @*take in number of students per group*@
-</form>
-    <form>
-    @*take in number of groups*@
-</form>
-    <table>
-        @*display names in groups, as a table*@
+<div>
 
-    </table>
+    <form method="post">
+        @*take in number of students per group*@
+        <input placeholder="Enter a number" asp-for="Number" />
+        <input type="radio" asp-for="Radio" value="true" /> Set as Size of groups
+        <button type="submit">Go!</button>
+    </form>
+    @if (Model.Groups == null)
+    {
+        <table>
+            <tr>
+                <th>
+                    Groups
+                </th>
+            </tr>
+            <tr>
+                Names
+            </tr>
+        </table>
+    }
+    else
+    {
+        <table>
+            @*display names in groups, as a table*@
+            @for(int i = 0; i < num; i++)
+            {
+            <tr>
+                <th>Group @(i+1)</th>
+            </tr>
+                for(int j =0; j < size; j++)
+                {
+                    <tr>
+                        <td>@Model.Groups[i,j]</td>
+                    </tr>
+                }
+
+            }
+        </table>
+    }
+
+
+
+
 
 </div>

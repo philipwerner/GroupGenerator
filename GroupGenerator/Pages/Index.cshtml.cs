@@ -17,24 +17,78 @@ namespace GroupGenerator.Pages
         }
         public void OnGet()
         {
-            //take in a list of names and produce groups of names with n members
-            var Class = _context.Class.Select(p => p.FirstName).ToArray();
-            string[] SClass = Shuffle(Class);
 
         }
-        public string[,] ByGroupSize(int size, string[] sclass)
+
+        [BindProperty]
+        public int Number { get; set; }
+        [BindProperty]
+        public bool Radio { get; set; }
+        public string[,] Groups { get; set; }
+        public void OnPost()
         {
-            int groupSize = size;
-            int groupNumber = sclass.Length / size;
-            string[,] Groups = new string[groupNumber, size];
-            for (var i = 0; i < groupNumber; i++)
+            MakeSomeGroups(Radio, Number);
+        }
+
+        public void MakeSomeGroups(bool radio, int num)
+        {
+            if (radio == true)
             {
-                for (var j = 0; j < sclass.Length; j++)
+                ByGroupSize(num);
+            }
+            else
+            {
+                ByGroupNumber(num);
+            }
+        }
+        public void ByGroupSize(int size)
+        {
+            var Class = _context.Class.Select(p => p.FirstName).ToArray();
+            string[] SClass = Shuffle(Class);
+            int groupSize = size;
+            int groupNumber = SClass.Length / size;
+            string[,] groups = new string[groupNumber, size];
+            int c = 0;
+            while (c < SClass.Length)
+            {
+                for (var i = 0; i < groupNumber; i++)
                 {
-                    Groups[i, j] = sclass[j];
+                    for (var j = 0; j < size; j++)
+                    {
+                        groups[i, j] = SClass[c];
+                        c++;
+                    }
                 }
             }
-            return Groups;
+            Groups = groups;
+            ViewData["GroupSize"] = groupSize;
+            ViewData["GroupNumber"] = groupNumber;
+
+
+        }
+
+        public void ByGroupNumber(int num)
+        {
+            var Class = _context.Class.Select(p => p.FirstName).ToArray();
+            string[] SClass = Shuffle(Class);
+            int groupSize = SClass.Length / num;
+            string[,] groups = new string[num, groupSize];
+            int c = 0;
+            while (c < SClass.Length)
+            {
+                for (var i = 0; i < num; i++)
+                {
+                    for (var j = 0; j < groupSize; j++)
+                    {
+                        groups[i, j] = SClass[c];
+                        c++;
+                    }
+                }
+            }
+             Groups = groups;
+            ViewData["GroupSize"] = groupSize;
+            ViewData["GroupNumber"] = num;
+
         }
 
         // this method takes in the floor and the ceiling | then uses the random methods .Next which returns a random number inside of the bounds that you define
