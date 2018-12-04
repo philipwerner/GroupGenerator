@@ -41,13 +41,19 @@ namespace GroupGenerator.Pages
                 ByGroupNumber(num);
             }
         }
+
         public void ByGroupSize(int size)
         {
             var Class = _context.Class.Select(p => p.FirstName).ToArray();
             string[] SClass = Shuffle(Class);
-            int groupSize = size;
+            double groupSize = size;
+            double clasSize = SClass.Length;
             int groupNumber = SClass.Length / size;
-            string[,] groups = new string[groupNumber, size];
+            if ((clasSize % size) > 0)
+            {
+                groupNumber++;
+            }
+            string[,] groups = new string[groupNumber,size];
             int c = 0;
             while (c < SClass.Length)
             {
@@ -55,8 +61,12 @@ namespace GroupGenerator.Pages
                 {
                     for (var j = 0; j < size; j++)
                     {
-                        groups[i, j] = SClass[c];
+                        groups[i,j] = SClass[c];
                         c++;
+                        if (c == SClass.Length)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -71,22 +81,45 @@ namespace GroupGenerator.Pages
         {
             var Class = _context.Class.Select(p => p.FirstName).ToArray();
             string[] SClass = Shuffle(Class);
+            double clasSize = SClass.Length;
+            double gnum = Convert.ToDouble(num);
+            int mod = 0;
             int groupSize = SClass.Length / num;
-            string[,] groups = new string[num, groupSize];
+            if (clasSize % gnum > 0)
+            {
+                mod = Convert.ToInt32(clasSize % gnum);
+            }
+            int gs = groupSize + 1;
+            string[,] groups = new string[num,gs];
             int c = 0;
             while (c < SClass.Length)
             {
+                
                 for (var i = 0; i < num; i++)
                 {
-                    for (var j = 0; j < groupSize; j++)
+                    if(mod <= 0)
                     {
-                        groups[i, j] = SClass[c];
+                        gs = groupSize;
+                    }
+                    for (var j = 0; j < gs; j++)
+                    {
+                        groups.SetValue(SClass[c], i, j);
                         c++;
+                        if (c == SClass.Length)
+                        {
+                            break;
+                        }
+                    }
+                    mod--;
+
+                    if (c == SClass.Length)
+                    {
+                        break;
                     }
                 }
             }
-             Groups = groups;
-            ViewData["GroupSize"] = groupSize;
+            Groups = groups;
+            ViewData["GroupSize"] = groupSize + 1;
             ViewData["GroupNumber"] = num;
 
         }
