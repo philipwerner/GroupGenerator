@@ -1,54 +1,50 @@
 ﻿@page
 @model IndexModel
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Home page";
-    int num = Convert.ToInt32( ViewData["GroupNumber"]);
-    int size = Convert.ToInt32( ViewData["GroupSize"]);
+    int num = Convert.ToInt32(ViewData["GroupNumber"]);
+    int size = Convert.ToInt32(ViewData["GroupSize"]);
 }
 
-<div>
-
-    <form method="post">
-        @*take in number of students per group*@
-        <input placeholder="Enter a number" asp-for="Number" />
-        <input type="radio" asp-for="Radio" value="true" /> Set as Size of groups
-        <button type="submit">Go!</button>
-    </form>
-    @if (Model.Groups == null)
-    {
-        <table>
-            <tr>
-                <th>
+<section>
+    <div class="div1">
+        <form method="post">
+            @*take in number of students per group*@
+            <input asp-for="Number" class="input"/>
+            <input type="checkbox" asp-for="Radio" value="true" />
+            <label class="label">Check to Set Size of Groups</label>
+            <button type="submit">Go!</button>
+        </form>
+    </div>
+    <div>
+        @if (Model.Groups == null)
+        {
+            <div>
+                <ul class="header">
                     Groups
-                </th>
-            </tr>
-            <tr>
-                Names
-            </tr>
-        </table>
-    }
-    else
-    {
-        <table>
-            @*display names in groups, as a table*@
-            @for(int i = 0; i < num; i++)
-            {
-            <tr>
-                <th>Group @(i+1)</th>
-            </tr>
-                for(int j =0; j < size; j++)
+                    <li class="names">Names</li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            //Not a table, lets use lists
+            <div class="table">
+                @for (var i = 0; i < num; i++)
                 {
-                    <tr>
-                        <td>@Model.Groups[i,j]</td>
-                    </tr>
+                    <ul class="header">
+                        Group @(i + 1)
+                        @for (var j = 0; j < size; j++)
+                        {
+                            <li class="names">
+                                @Model.Groups[i, j]
+                            </li>
+                        }
+                    </ul>
                 }
-
-            }
-        </table>
-    }
-
-
-
-
-
-</div>
+            </div>
+        }
+    </div>
+    <button href="./Students" >Students</button>
+</section>

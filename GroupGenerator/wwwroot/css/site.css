@@ -1,4 +1,69 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    width: 100%;
+    height: 680px;
+    background-color: #333;
+    
+}
+section {
+    height: 100%;
+}
+div {
+    width: 100%;
+    height: 33%;
+    margin: 0 auto;
+}
+
+.div1 {
+    height: 20%;
+    margin-left: 40px;
+}
+
+form {
+    padding: 15px 15px;
+}
+
+.input {
+    font-size: 1em;    
+    border-radius: 5px;
+    padding: 3px;
+}
+
+input[type=checkbox] {
+    transform: scale(2);
+    margin-left: 20px;
+}
+
+label {
+    font-size: 1.25em;
+}
+
+button {
+    margin-left: 20px;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+
+.table {
+    width: 95%;
+    margin-bottom: 3em;
+}
+
+.header {
+    display: inline-block;
+    list-style: circle;
+    font-weight: 700;
+    font-size: 1.3em;
+    margin: 0 auto;
+    color: #660808;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.names {
+    font-weight: 400;
+    font-size: 1em;
+    color: aliceblue;
+    font-family: Georgia, serif;
 }
