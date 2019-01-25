@@ -41,7 +41,10 @@ namespace GroupGenerator.Pages
                 ByGroupNumber(num);
             }
         }
-
+        /// <summary>
+        /// This is the method that generates groups by size
+        /// </summary>
+        /// <param name="size"></param>
         public void ByGroupSize(int size)
         {
             var Class = _context.Class.Select(p => p.FirstName).ToArray();
@@ -76,7 +79,10 @@ namespace GroupGenerator.Pages
 
 
         }
-
+        /// <summary>
+        /// This is the method that generates a number of groups
+        /// </summary>
+        /// <param name="num"></param>
         public void ByGroupNumber(int num)
         {
             var Class = _context.Class.Select(p => p.FirstName).ToArray();
