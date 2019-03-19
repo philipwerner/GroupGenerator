@@ -3,11 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="~/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
     <title>@ViewData["Title"] - GroupGenerator</title>
 
 </head>
 <body>
+    <header>
+        <nav class="nav">
+            <ul>
+                <li><a class="links" asp-page="Students">View Students</a></li>
+                <li><a class="links" asp-page="Create">Add</a></li>
+                <li><a class="links" asp-page="Index">Index</a></li>
+            </ul>
+        </nav>
+    </header>
     <section>
         @RenderBody()
     </section>

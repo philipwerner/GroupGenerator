@@ -37,7 +37,7 @@ namespace GroupGenerator.Pages
             _context.Class.Add(Class);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Students");
         }
     }
 }
